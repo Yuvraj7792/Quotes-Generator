@@ -7,6 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display+SC&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
 
     <style>
         *{
@@ -52,6 +55,7 @@
         .box .quoteBox{
             font-size: 26px;
             min-height: 110px;
+            font-family: 'Playfair Display', serif;
         }
         .box .quoteBox::before,.box .quoteBox::after{
             content: '"';
@@ -82,13 +86,15 @@
             color: #fff;
             border-radius:25px;
             border: 1px solid rgb(23, 124, 229);
-            width: 150px;
-            height: 50px;
+            width: 100px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 5px;
+            margin: 8px;
             cursor: pointer;
+            box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.251);
+            font-size: 15px;
         }
     </style>
 </head>
@@ -97,11 +103,12 @@
     <div class="full">
         <div class="box">
            <h2>Quote of the Day</h1>
-           <div class="quoteBox" id="q"></div>
+           <div class="quoteBox" id="q">Developed By Yuvraj</div>
            <p class="author" id="a"></p>
            <div class="btn">
                 <button onclick="getQuote(api)">New Quote</button>
-                <button onclick="tweet()">tweet</button>
+                <button onclick="tweet()">Tweet</button>
+                <button onclick="whatsapp()">Whatsapp</button>
            </div>
         </div>
     </div>
@@ -111,6 +118,7 @@
         const author = document.getElementById('a');
 
         const api="https://api.quotable.io/random";
+
         async function getQuote(url){
             const response = await fetch(url);
             var data = await response.json();
@@ -122,10 +130,14 @@
         getQuote(api);
 
         function tweet(){
-            window.open("https://twitter.com/intent/tweet?text="+quote.innerHTML+"---- by "+author.innerHTML,"Tweet Window","Width=600, height=300");
-
+            var message = encodeURIComponent(quote.innerHTML + "\n\n\t\t\t\t---- by " + author.innerHTML);
+            window.open("https://twitter.com/intent/tweet?text="+message,"Tweet Window","Width=900, height=400");
         }
 
+        function whatsapp(){
+            var message = encodeURIComponent(quote.innerHTML + "\n\n\t\t\t\t---- by " + author.innerHTML+"\n\n\n\nKindly Please visit    to read more quotes.");
+            window.open("whatsapp://send?text=" + message);
+        }
     </script>
 </body>
 </html>
